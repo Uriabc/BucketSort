@@ -1,0 +1,136 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.bucketsort;
+
+/**
+ *
+ * @author urdo5941
+ */
+
+import java.util.ArrayList;
+import java.util.Scanner;
+public class bucket1{
+    
+    
+    public static void main(String agrs[]) {
+        Scanner in = new Scanner(System.in);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        System.out.println("Enter the length of the list:");
+        int length = in.nextInt();
+        System.out.println("Enter numbers between 0 and 100");
+        for (int i = 0;i<length;i++){
+            int num = in.nextInt();
+            if (num>=0 && num<=100){
+                list.add(num);
+            }
+            else{
+                System.out.println("OUT OF DOMAIN");
+            }
+            
+        }
+        bucketSort(list);
+        
+    }
+    public static void bucketSort(ArrayList<Integer> list) {
+        ArrayList<Integer> bucket = new ArrayList<Integer>();
+        
+        ArrayList<Integer> bucket0 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket1 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket2 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket3 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket4 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket5 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket6 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket7 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket8 = new ArrayList<Integer>();
+        ArrayList<Integer> bucket9 = new ArrayList<Integer>();
+        
+        
+        for (int j = 0; j<list.size();j++) {
+            if (list.get(j)>=0&&list.get(j)<10) {
+                bucket0.add(list.get(j));
+            }
+            else if (list.get(j) >=10 && list.get(j) <20) {
+                bucket1.add(list.get(j));
+            }
+            else if (list.get(j) >=20 && list.get(j) <30) {
+                bucket2.add(list.get(j));
+            }
+            else if (list.get(j) >=30 && list.get(j) <40) {
+                bucket3.add(list.get(j));
+            }
+            else if (list.get(j) >=40 && list.get(j) <50) {
+                bucket4.add(list.get(j));
+            }
+            else if (list.get(j) >=50 && list.get(j) <60) {
+                bucket5.add(list.get(j));
+            }
+            else if (list.get(j) >=60 && list.get(j) <70) {
+                bucket6.add(list.get(j));
+            }
+            else if (list.get(j) >=70 && list.get(j) <80) {
+                bucket7.add(list.get(j));
+            }
+            else if (list.get(j) >=80 && list.get(j) <90) {
+                bucket8.add(list.get(j));
+            }
+            else if (list.get(j) >=90 && list.get(j) <=100) {
+                bucket9.add(list.get(j));
+            }
+        }
+        System.out.println("bucket#1:" +bucket0);
+        System.out.println("bucket#2:" +bucket1);
+        System.out.println("bucket#3:" +bucket2);
+        System.out.println("bucket#4:" +bucket3);
+        System.out.println("bucket#5:" +bucket4);
+        System.out.println("bucket#6:" +bucket5);
+        System.out.println("bucket#7:" +bucket6);
+        System.out.println("bucket#8:" +bucket7);
+        System.out.println("bucket#9:" +bucket8);
+        System.out.println("bucket#10:" +bucket9);
+        
+        sort(bucket0);
+        sort(bucket1);
+        sort(bucket2);
+        sort(bucket3);
+        sort(bucket4);
+        sort(bucket5);
+        sort(bucket6);
+        sort(bucket7);
+        sort(bucket8);
+        sort(bucket9);
+        System.out.println("Sorted bucket#1:" + bucket0);
+        System.out.println("Sorted bucket#2:" + bucket1);
+        System.out.println("Sorted bucket#3:" + bucket2);
+        System.out.println("Sorted bucket#4:" + bucket3);
+        System.out.println("Sorted bucket#5:" + bucket4);
+        System.out.println("Sorted bucket#6:" + bucket5);
+        System.out.println("Sorted bucket#7:" + bucket6);
+        System.out.println("Sorted bucket#8:" + bucket7);
+        System.out.println("Sorted bucket#9:" + bucket8);
+        System.out.println("Sorted bucket#10:" + bucket9);
+        
+    }
+    
+    public static void sort(ArrayList<Integer> bucket){
+        if (bucket.size()>1) {
+                for (int n=0;n<bucket.size();n++) {
+                    for (int m = n+1;m<bucket.size();m++) {
+                        int temp = 0;
+                        if (bucket.get(m)<bucket.get(n)) {
+                            temp = bucket.get(n);
+                            bucket.set(n,bucket.get(m));
+                            bucket.set(m,temp);
+                        }
+                    }
+                        
+                    }
+                }
+    }
+    
+}
+
+    
