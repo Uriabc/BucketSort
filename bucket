@@ -38,6 +38,7 @@ public class bucket1{
         
     }
     public static void bucketSort(ArrayList<Integer> list) {
+        Scanner in = new Scanner(System.in);
         ArrayList<Integer> bucket = new ArrayList<Integer>();
         
         ArrayList<Integer> bucket0 = new ArrayList<Integer>();
@@ -132,6 +133,26 @@ public class bucket1{
         putIn(bucket,bucket9);
         
         System.out.println(bucket);
+        
+        System.out.println("\nReverse Sort? (Y/N):");
+        String answer = in.nextLine();
+        if (answer.equals("Y")) {
+            bucket = new ArrayList<Integer>();
+            reversePutIn(bucket,bucket9);
+            reversePutIn(bucket,bucket8);
+            reversePutIn(bucket,bucket7);
+            reversePutIn(bucket,bucket6);
+            reversePutIn(bucket,bucket5);
+            reversePutIn(bucket,bucket4);
+            reversePutIn(bucket,bucket3);
+            reversePutIn(bucket,bucket2);
+            reversePutIn(bucket,bucket1);
+            reversePutIn(bucket,bucket0);
+            System.out.println(bucket);
+        }
+        else {
+            System.out.println("GOOD BYE~");
+        }
     }
     
     public static void sort(ArrayList<Integer> bucket){
@@ -157,7 +178,13 @@ public class bucket1{
             }
         }
     }
-    
+    public static void reversePutIn(ArrayList<Integer> list,ArrayList<Integer> bucket){
+        if (!bucket.isEmpty()) {
+            for (int i = bucket.size()-1;i>=0;i--) {
+                list.add(bucket.get(i));
+            }
+        }
+    }
 }
 
     
