@@ -27,10 +27,13 @@ public class bucket1{
                 list.add(num);
             }
             else{
-                System.out.println("OUT OF DOMAIN");
+                System.out.println("OUT OF DOMAIN, PLEASE RE-ENTER");
+                i--;
             }
             
         }
+        System.out.println("List: " + list);
+        System.out.println("\n~~~~~Collecting elements~~~~~~");
         bucketSort(list);
         
     }
@@ -102,6 +105,7 @@ public class bucket1{
         sort(bucket7);
         sort(bucket8);
         sort(bucket9);
+        System.out.println("\n~~~~Sorting~~~~");
         System.out.println("Sorted bucket#1:" + bucket0);
         System.out.println("Sorted bucket#2:" + bucket1);
         System.out.println("Sorted bucket#3:" + bucket2);
@@ -113,6 +117,21 @@ public class bucket1{
         System.out.println("Sorted bucket#9:" + bucket8);
         System.out.println("Sorted bucket#10:" + bucket9);
         
+        System.out.println("~~~~~~~~~~~~~~");
+        System.out.println("\nPulling out the value in the buckets"); 
+        
+        putIn(bucket,bucket0);
+        putIn(bucket,bucket1);
+        putIn(bucket,bucket2);
+        putIn(bucket,bucket3);
+        putIn(bucket,bucket4);
+        putIn(bucket,bucket5);
+        putIn(bucket,bucket6);
+        putIn(bucket,bucket7);
+        putIn(bucket,bucket8);
+        putIn(bucket,bucket9);
+        
+        System.out.println(bucket);
     }
     
     public static void sort(ArrayList<Integer> bucket){
@@ -129,6 +148,14 @@ public class bucket1{
                         
                     }
                 }
+    }
+    
+    public static void putIn(ArrayList<Integer> list,ArrayList<Integer> bucket) {
+        if (!bucket.isEmpty()) {
+            for (int i = 0; i<bucket.size(); i++) {
+                list.add(bucket.get(i));
+            }
+        }
     }
     
 }
