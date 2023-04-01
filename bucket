@@ -12,32 +12,61 @@ package com.mycompany.bucketsort;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class bucket1{
-    
-    
     public static void main(String agrs[]) {
         Scanner in = new Scanner(System.in);
         ArrayList<Integer> list = new ArrayList<Integer>();
         
-        System.out.println("Enter the length of the list:");
-        int length = in.nextInt();
-        System.out.println("Enter numbers between 0 and 100");
-        for (int i = 0;i<length;i++){
-            int num = in.nextInt();
-            if (num>=0 && num<=100){
-                list.add(num);
-            }
-            else{
-                System.out.println("OUT OF DOMAIN, PLEASE RE-ENTER");
-                i--;
-            }
-            
-        }
-        System.out.println("List: " + list);
-        System.out.println("\n~~~~~Collecting elements~~~~~~");
-        bucketSort(list);
+        System.out.println("CHOOSING MODE:");
+        System.out.println("1.Sort your own list");
+        System.out.println("2.Sort a random list");
+        int mode = in.nextInt();
+        //Ownlist mode
+        if (mode==1) {
         
+            
+            System.out.println("Enter the length of the list:");
+            int length = in.nextInt();
+            System.out.println("Enter numbers between 0 and 100");
+            for (int i = 0;i<length;i++){
+                int num = in.nextInt();
+                if (num>=0 && num<=100){
+                    list.add(num);
+                }
+                else{
+                    System.out.println("OUT OF DOMAIN, PLEASE RE-ENTER");
+                    i--;
+                }
+            
+         }
+            System.out.println("List: " + list);
+            System.out.println("\n~~~~~Collecting elements~~~~~~");
+            bucketSort(list);
+        }
+        //randomlist mode
+        else if (mode == 2) {
+            System.out.println("Generating a list from 0 to 100...");
+            int i = 0;
+            //adding 100 random integer numbers to the list
+            while(i <101) {
+                list.add(getRandomNumber(0,100));
+                i++;
+            }
+            System.out.println(list);
+            bucketSort(list);
+            System.out.println("\n~~~~~~~~~~~~~~");
+        }
     }
-    public static void bucketSort(ArrayList<Integer> list) {
+    
+    //return a random integer within the max and min number
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    static void bucketSort(ArrayList<Integer> list) {
+        //taking the time the bucketsort starts
+        long startTime = System.nanoTime();
+        
+        
         Scanner in = new Scanner(System.in);
         ArrayList<Integer> bucket = new ArrayList<Integer>();
         
@@ -52,7 +81,7 @@ public class bucket1{
         ArrayList<Integer> bucket8 = new ArrayList<Integer>();
         ArrayList<Integer> bucket9 = new ArrayList<Integer>();
         
-        
+        //Giving the range for each bucket
         for (int j = 0; j<list.size();j++) {
             if (list.get(j)>=0&&list.get(j)<10) {
                 bucket0.add(list.get(j));
@@ -85,6 +114,8 @@ public class bucket1{
                 bucket9.add(list.get(j));
             }
         }
+        
+        //display the original buckets on the screen
         System.out.println("bucket#1:" +bucket0);
         System.out.println("bucket#2:" +bucket1);
         System.out.println("bucket#3:" +bucket2);
@@ -96,6 +127,7 @@ public class bucket1{
         System.out.println("bucket#9:" +bucket8);
         System.out.println("bucket#10:" +bucket9);
         
+        //sort the buckets 
         sort(bucket0);
         sort(bucket1);
         sort(bucket2);
@@ -106,6 +138,8 @@ public class bucket1{
         sort(bucket7);
         sort(bucket8);
         sort(bucket9);
+        
+        //display the bucket arrays on the screen
         System.out.println("\n~~~~Sorting~~~~");
         System.out.println("Sorted bucket#1:" + bucket0);
         System.out.println("Sorted bucket#2:" + bucket1);
@@ -118,9 +152,13 @@ public class bucket1{
         System.out.println("Sorted bucket#9:" + bucket8);
         System.out.println("Sorted bucket#10:" + bucket9);
         
+        
+        
         System.out.println("~~~~~~~~~~~~~~");
         System.out.println("\nPulling out the value in the buckets"); 
         
+        //sorting in the acsending order
+        //start from the first bucket to the last bucket
         putIn(bucket,bucket0);
         putIn(bucket,bucket1);
         putIn(bucket,bucket2);
@@ -134,8 +172,20 @@ public class bucket1{
         
         System.out.println(bucket);
         
+        //taking the time the bucketsort ends
+        long endTime = System.nanoTime();
+
+         // get the difference between the two nano time valuess
+         long timeElapsed = (endTime - startTime);
+         System.out.println("Processing Time: " + timeElapsed + "ns");
+        
+                
+        //Enter "Y" to start sorting in descending order
         System.out.println("\nReverse Sort? (Y/N):");
         String answer = in.nextLine();
+        
+        //Reverse order
+        //start from the end of the last bucket to the first element of the first bucket
         if (answer.equals("Y")) {
             bucket = new ArrayList<Integer>();
             reversePutIn(bucket,bucket9);
@@ -155,30 +205,34 @@ public class bucket1{
         }
     }
     
-    public static void sort(ArrayList<Integer> bucket){
+    //sorting the un-empty buckets by pushing the bigger number to the end of the list
+    static void sort(ArrayList<Integer> bucket){
         if (bucket.size()>1) {
-                for (int n=0;n<bucket.size();n++) {
-                    for (int m = n+1;m<bucket.size();m++) {
-                        int temp = 0;
-                        if (bucket.get(m)<bucket.get(n)) {
-                            temp = bucket.get(n);
-                            bucket.set(n,bucket.get(m));
-                            bucket.set(m,temp);
-                        }
-                    }
-                        
+            for (int n=0;n<bucket.size();n++) {
+                for (int m = n+1;m<bucket.size();m++) {
+                    int temp = 0;
+                    //swap 2 elements if hte first element is bigger than the other
+                    if (bucket.get(m)<bucket.get(n)) {
+                        temp = bucket.get(n);
+                        bucket.set(n,bucket.get(m));
+                        bucket.set(m,temp);
                     }
                 }
+            }
+        }
     }
     
-    public static void putIn(ArrayList<Integer> list,ArrayList<Integer> bucket) {
+    //add the element in the buckets to the list from the left to the right
+    static void putIn(ArrayList<Integer> list,ArrayList<Integer> bucket) {
         if (!bucket.isEmpty()) {
             for (int i = 0; i<bucket.size(); i++) {
                 list.add(bucket.get(i));
             }
         }
     }
-    public static void reversePutIn(ArrayList<Integer> list,ArrayList<Integer> bucket){
+    
+    //add the element in the buckets to the list from the right to the left
+    static void reversePutIn(ArrayList<Integer> list,ArrayList<Integer> bucket){
         if (!bucket.isEmpty()) {
             for (int i = bucket.size()-1;i>=0;i--) {
                 list.add(bucket.get(i));
@@ -186,5 +240,3 @@ public class bucket1{
         }
     }
 }
-
-    
